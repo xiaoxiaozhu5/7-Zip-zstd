@@ -43,7 +43,17 @@ bool CEditPage::OnInit()
     c.Edit.Attach(GetItem(c.Ctrl));
     UString path;
     if (i < 2)
+    {
       ReadRegEditor(i > 0, path);
+      if (path.IsEmpty())
+      {
+        //default view and edit set to notepad++
+        if (i == 0) 
+          c.Edit.SetText("\"C:\\Program Files\\Notepad++\\notepad++.exe\" -ro -multiInst -notabbar -nosession -noPlugin \"%*\"");
+        else
+          c.Edit.SetText("\"C:\\Program Files\\Notepad++\\notepad++.exe\" -multiInst -notabbar -nosession -noPlugin \"%*\"");
+      }
+    }
     else
       ReadRegDiff(path);
     c.Edit.SetText(path);
